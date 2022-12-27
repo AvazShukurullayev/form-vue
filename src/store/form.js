@@ -14,7 +14,6 @@ const form = {
   },
   actions: {
     actionForm({ commit }, payload) {
-      console.log("payload => ", payload);
       commit("setForm", payload);
     },
   },

@@ -2,7 +2,7 @@
   <div class="home">
     <div class="container">
       <div class="row">
-        <div class="col-md-4 offset-4 shadow my-5 p-3 rounded">
+        <div class="col-lg-3 shadow my-5 p-3 rounded">
           <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
             <b-form-group
               class="my-2"
@@ -78,7 +78,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <b-table striped hover bordered :items="array"></b-table>
+          <b-table striped hover bordered :items="getForm"></b-table>
         </div>
       </div>
     </div>
@@ -92,39 +92,23 @@ export default {
   components: {},
   data() {
     return {
-      form: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      },
-      array: [],
+      form: {},
     };
   },
   computed: {
-    // ...mapGetters(["getForm"]),
+    ...mapGetters(["getForm"]),
+  },
+  mounted(){
+    console.log(this.getForm);
   },
   methods: {
-    // ...mapActions(["actionForm"]),
+    ...mapActions(["actionForm"]),
     onSubmit() {
-      // this.actionForm(this.form);
-      // console.log("onSubmit => ", this.form);
-      // console.log("onSubmit lifecycle => ", this.getForm);
-      this.array.push(this.form);
-      console.log("this array => ", this.array);
-  /*     this.form.firstName = "";
-      this.form.lastName = "";
-      this.form.email = "";
-      this.form.password = "";
-      this.form.confirmPassword = ""; */
+      this.actionForm(this.form);
+      this.form = {};
     },
     onReset() {
-      this.form.firstName = "";
-      this.form.lastName = "";
-      this.form.email = "";
-      this.form.password = "";
-      this.form.confirmPassword = "";
+      this.form = {};
     },
   },
 };
