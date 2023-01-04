@@ -140,7 +140,7 @@ export default {
       const passwordLeast = document.querySelector(".least");
       const passwordNumber = document.querySelector(".number");
       const passwordWord = document.querySelector(".word");
-      if (this.form.password != "") {
+      if (this.form.password !== "") {
         passwordParag.forEach((element) => (element.style.display = "block"));
         if (isNaN(this.form.password) && this.form.password.length >= 5) {
           console.log("isNaN => ", isNaN(this.form.password));
