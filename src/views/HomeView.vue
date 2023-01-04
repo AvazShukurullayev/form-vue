@@ -126,6 +126,8 @@ export default {
       if (this.check.same) {
         this.actionForm(this.form);
         this.form = {};
+        const same = document.querySelector(".same");
+        same.style.display = "none";
       } else {
         alert("onSubmit else statement");
       }
