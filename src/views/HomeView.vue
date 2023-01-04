@@ -49,6 +49,7 @@
               label-for="password"
             >
               <b-form-input
+                ref="passwordInput"
                 @input="onPassword"
                 type="password"
                 v-model="form.password"
@@ -68,7 +69,7 @@
               <b-form-input
                 @input="onConfirmPassword"
                 type="password"
-                id="confirm-password"
+                id="confirmPassword"
                 v-model="form.confirmPassword"
                 placeholder="*******"
                 required
@@ -121,6 +122,7 @@ export default {
   methods: {
     ...mapActions(["actionForm"]),
     onSubmit() {
+      console.log("onSubmit()");
       if (this.check.same) {
         this.actionForm(this.form);
         this.form = {};
@@ -138,14 +140,12 @@ export default {
       const passwordWord = document.querySelector(".word");
       if (this.form.password != "") {
         passwordParag.forEach((element) => (element.style.display = "block"));
-        if (isNaN(this.form.password)) {
+        if (isNaN(this.form.password) && this.form.password.length >= 5) {
           console.log("isNaN => ", isNaN(this.form.password));
           passwordWord.style.display = "none";
           passwordNumber.style.display = "none";
-          if (this.form.password.length >= 5) {
-            passwordLeast.style.display = "none";
-            this.check.password = this.form.password;
-          }
+          passwordLeast.style.display = "none";
+          this.check.password = this.form.password;
         }
       }
     },
@@ -153,9 +153,10 @@ export default {
       const unSame = document.querySelector(".unSame");
       const same = document.querySelector(".same");
       if (this.form.password === this.form.confirmPassword) {
-        alert("Successfully passwords");
+        console.log("Successfully passwords");
         unSame.style.display = "none";
         same.style.display = "block";
+        same.style.color = "lime";
         this.check.same = true;
       } else {
         console.log("unsame passwords");
@@ -165,12 +166,18 @@ export default {
       }
     },
     showPassword() {
-      if (this.form.password !== "" || this.form.confirmPassword !== "") {
-        this.form.password.type = "text";
-        this.form.confirmPassword.type = "text";
+      const password = document.querySelector("#password");
+      const confirmPassword = document.querySelector("#confirmPassword");
+      if (
+        password.type == "password" &&
+        confirmPassword.type == "password" &&
+        (this.form.password !== "" || this.form.confirmPassword !== "")
+      ) {
+        password.type = "text";
+        confirmPassword.type = "text";
       } else {
-        this.form.password.type = "password";
-        this.form.confirmPassword.type = "password";
+        password.type = "password";
+        confirmPassword.type = "password";
       }
     },
   },
