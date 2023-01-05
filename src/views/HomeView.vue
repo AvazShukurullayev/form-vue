@@ -60,7 +60,6 @@
               <p class="password__parag least">At least 5 letters 😒</p>
               <p class="password__parag number">At least one number 😒</p>
               <p class="password__parag word">At least one word 😒</p>
-              <p class="password__parag allCorrect">All correct ✅</p>
             </b-form-group>
             <b-form-group
               class="my-2"
@@ -112,61 +111,63 @@ export default {
         confirmPassword: "",
         same: null,
       },
-      numberArray: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-      alphabetArray: [
-        "A",
-        "a",
-        "B",
-        "b",
-        "C",
-        "c",
-        "D",
-        "d",
-        "E",
-        "e",
-        "F",
-        "f",
-        "G",
-        "g",
-        "H",
-        "h",
-        "I",
-        "i",
-        "J",
-        "j",
-        "K",
-        "k",
-        "L",
-        "l",
-        "M",
-        "m",
-        "N",
-        "n",
-        "O",
-        "o",
-        "P",
-        "p",
-        "Q",
-        "q",
-        "R",
-        "r",
-        "S",
-        "s",
-        "T",
-        "t",
-        "U",
-        "u",
-        "V",
-        "v",
-        "W",
-        "w",
-        "X",
-        "x",
-        "Y",
-        "y",
-        "Z",
-        "z",
-      ],
+      massiv: {
+        numbers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        alphabet: [
+          "A",
+          "a",
+          "B",
+          "b",
+          "C",
+          "c",
+          "D",
+          "d",
+          "E",
+          "e",
+          "F",
+          "f",
+          "G",
+          "g",
+          "H",
+          "h",
+          "I",
+          "i",
+          "J",
+          "j",
+          "K",
+          "k",
+          "L",
+          "l",
+          "M",
+          "m",
+          "N",
+          "n",
+          "O",
+          "o",
+          "P",
+          "p",
+          "Q",
+          "q",
+          "R",
+          "r",
+          "S",
+          "s",
+          "T",
+          "t",
+          "U",
+          "u",
+          "V",
+          "v",
+          "W",
+          "w",
+          "X",
+          "x",
+          "Y",
+          "y",
+          "Z",
+          "z",
+        ],
+      },
     };
   },
   computed: {
@@ -191,12 +192,48 @@ export default {
     onReset() {
       this.form = {};
     },
+    // RegExp bilan qilish kerak
     onPassword() {
       const passwordParag = document.querySelectorAll(".password__parag");
       const passwordLeast = document.querySelector(".least");
       const passwordNumber = document.querySelector(".number");
       const passwordWord = document.querySelector(".word");
-      if (this.form.password !== "") {
+      if (this.form.password.length !== "") {
+        passwordParag.forEach((element) => (element.style.display = "block"));
+        let checkWord = false;
+        let checkNumber = false;
+        this.massiv.alphabet.map((element) => {
+          if (this.form.password.includes(element)) {
+            checkWord = true;
+            return checkWord;
+          }
+        });
+        this.massiv.numbers.map((element) => {
+          if (this.form.password.includes(element)) {
+            checkNumber = true;
+            return checkNumber;
+          }
+        });
+        if (checkNumber || checkWord) {
+          if (checkWord) {
+            passwordWord.style.color = "lime";
+            if (this.form.password.length >= 5) {
+              passwordLeast.style.color = "lime";
+            }
+          } else if (checkNumber) {
+            passwordNumber.style.color = "lime";
+            if (this.form.password.length >= 5) {
+              passwordLeast.style.color = "lime";
+            }
+          }
+        } else {
+          console.log("Else statement not Urus lambo");
+        }
+      } else {
+        passwordParag.forEach((element) => (element.style.display = "none"));
+      }
+      // if(this.form.password == this.)
+      /*  if (this.form.password !== "") {
         passwordParag.forEach((element) => (element.style.display = "block"));
         if (isNaN(this.form.password) && this.form.password.length >= 5) {
           console.log("isNaN => ", isNaN(this.form.password));
@@ -205,7 +242,7 @@ export default {
           passwordLeast.style.display = "none";
           this.check.password = this.form.password;
         }
-      }
+      } */
     },
     onConfirmPassword() {
       const unSame = document.querySelector(".unSame");
