@@ -57,9 +57,9 @@
                 placeholder="*******"
                 required
               ></b-form-input>
-              <p class="password__parag least">At least 5 letters 😒</p>
-              <p class="password__parag number">At least one number 😒</p>
-              <p class="password__parag word">At least one word 😒</p>
+              <p class="password__parag least">At least 5 letters </p>
+              <p class="password__parag number">At least one number </p>
+              <p class="password__parag word">At least one word </p>
             </b-form-group>
             <b-form-group
               class="my-2"
