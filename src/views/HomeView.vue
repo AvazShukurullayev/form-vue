@@ -2,7 +2,7 @@
   <div class="home">
     <div class="container">
       <div class="row">
-        <div class="col-lg-3 shadow my-5 p-3 rounded">
+        <div class="col-12 shadow my-5 p-3 rounded">
           <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
             <h2 class="form__title">Registration 😎</h2>
             <b-form-group
@@ -91,7 +91,25 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <b-table striped hover bordered :items="getForm"></b-table>
+          <b-table
+            id="my-table"
+            :items="getForm"
+            :per-page="perPage"
+            :current-page="currentPage"
+            stripped
+            hover
+            bordered
+            small
+          ></b-table>
+          <div class="pagination">
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="rows"
+              :per-page="perPage"
+              aria-controls="my-table"
+            ></b-pagination>
+          </div>
+          <p class="mt-3">Current Page: {{ currentPage }}</p>
         </div>
       </div>
     </div>
@@ -195,3 +213,53 @@ export default {
   display: none;
 }
 </style>
+
+<!--  
+<template>
+  <div class="overflow-auto">
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+
+    <p class="mt-3">Current Page: {{ currentPage }}</p>
+
+    <b-table
+      id="my-table"
+      :items="items"
+      :per-page="perPage"
+      :current-page="currentPage"
+      small
+    ></b-table>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        perPage: 3,
+        currentPage: 1,
+        items: [
+          { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
+          { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
+          { id: 3, first_name: 'Barney', last_name: 'Rubble' },
+          { id: 4, first_name: 'Betty', last_name: 'Rubble' },
+          { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
+          { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
+          { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
+          { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
+          { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
+        ]
+      }
+    },
+    computed: {
+      rows() {
+        return this.items.length
+      }
+    }
+  }
+</script>
+-->
