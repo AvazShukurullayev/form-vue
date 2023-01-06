@@ -107,9 +107,7 @@ export default {
     return {
       form: {},
       check: {
-        password: "",
-        confirmPassword: "",
-        same: null,
+        isSamePasswords: null,
       },
     };
   },
@@ -122,10 +120,11 @@ export default {
   methods: {
     ...mapActions(["actionForm"]),
     onSubmit() {
-      console.log("onSubmit()");
-      if (this.check.same) {
+      if (this.check.isSamePasswords) {
         this.actionForm(this.form);
         this.form = {};
+        const least = document.querySelector(".least");
+        least.style.display = "none";
         const same = document.querySelector(".same");
         same.style.display = "none";
       } else {
@@ -148,17 +147,6 @@ export default {
       } else {
         passwordLeast.style.display = "none";
       }
-      // if(this.form.password == this.)
-      /*  if (this.form.password !== "") {
-        passwordParag.forEach((element) => (element.style.display = "block"));
-        if (isNaN(this.form.password) && this.form.password.length >= 5) {
-          console.log("isNaN => ", isNaN(this.form.password));
-          passwordWord.style.display = "none";
-          passwordNumber.style.display = "none";
-          passwordLeast.style.display = "none";
-          this.check.password = this.form.password;
-        }
-      } */
     },
     onConfirmPassword() {
       const unSame = document.querySelector(".unSame");
@@ -168,12 +156,12 @@ export default {
         unSame.style.display = "none";
         same.style.display = "block";
         same.style.color = "lime";
-        this.check.same = true;
+        this.check.isSamePasswords = true;
       } else {
-        console.log("unsame passwords");
+        console.log("unSame passwords");
         unSame.style.display = "block";
         same.style.display = "none";
-        this.check.same = false;
+        this.check.isSamePasswords = false;
       }
     },
     showPassword() {
