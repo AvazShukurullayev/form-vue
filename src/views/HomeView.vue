@@ -110,6 +110,10 @@
             ></b-pagination>
           </div>
           <p class="mt-3">Current Page: {{ currentPage }}</p>
+          <br />
+          <br />
+          <br />
+          <h3>id ni qoyishda muammo bor</h3>
         </div>
       </div>
     </div>
