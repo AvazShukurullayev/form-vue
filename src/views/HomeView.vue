@@ -54,7 +54,7 @@
                 type="password"
                 v-model="form.password"
                 id="password"
-                placeholder="*******"
+                placeholder="***"
                 required
               ></b-form-input>
               <p class="password__parag least">At least 5 letters</p>
@@ -71,7 +71,7 @@
                 type="password"
                 id="confirmPassword"
                 v-model="form.confirmPassword"
-                placeholder="*******"
+                placeholder="***"
                 required
               ></b-form-input>
               <p class="password__desc unSame">Not same password 😒</p>
@@ -92,14 +92,14 @@
       <div class="row">
         <div class="col-12">
           <b-table
-            id="my-table"
-            :items="getForm"
-            :per-page="perPage"
-            :current-page="currentPage"
             stripped
             hover
             bordered
             small
+            id="my-table"
+            :items="getForm"
+            :per-page="perPage"
+            :current-page="currentPage"
           ></b-table>
           <div class="pagination">
             <b-pagination
@@ -123,14 +123,33 @@ export default {
   components: {},
   data() {
     return {
-      form: {},
+      form: {
+        id: 0,
+      },
+      onSubmitCounter: 0,
       check: {
         isSamePasswords: null,
       },
+      perPage: 2,
+      currentPage: 1,
+      items: [
+        { id: 1, first_name: "Fred", last_name: "Flintstone" },
+        { id: 2, first_name: "Wilma", last_name: "Flintstone" },
+        { id: 3, first_name: "Barney", last_name: "Rubble" },
+        { id: 4, first_name: "Betty", last_name: "Rubble" },
+        { id: 5, first_name: "Pebbles", last_name: "Flintstone" },
+        { id: 6, first_name: "Bamm Bamm", last_name: "Rubble" },
+        { id: 7, first_name: "The Great", last_name: "Gazzoo" },
+        { id: 8, first_name: "Rockhead", last_name: "Slate" },
+        { id: 9, first_name: "Pearl", last_name: "Slaghoople" },
+      ],
     };
   },
   computed: {
     ...mapGetters(["getForm"]),
+    rows() {
+      return this.getForm.length;
+    },
   },
   mounted() {
     console.log("Mounted methods => ", this.getForm);
@@ -139,8 +158,11 @@ export default {
     ...mapActions(["actionForm"]),
     onSubmit() {
       if (this.check.isSamePasswords) {
+        this.form.id++;
+        this.onSubmitCounter++;
         this.actionForm(this.form);
         this.form = {};
+        this.form.id = this.onSubmitCounter;
         const least = document.querySelector(".least");
         least.style.display = "none";
         const same = document.querySelector(".same");
@@ -151,6 +173,11 @@ export default {
     },
     onReset() {
       this.form = {};
+      this.form.id = this.onSubmitCounter;
+      const least = document.querySelector(".least");
+      least.style.display = "none";
+      const same = document.querySelector(".same");
+      same.style.display = "none";
     },
     // RegExp bilan qilish kerak
     onPassword() {
