@@ -114,6 +114,10 @@
           <br />
           <br />
           <h3>id ni qoyishda muammo bor</h3>
+          <h4>Danniyla qanaqa korinishda kevotti</h4>
+          <pre>
+            {{ getForm }}
+          </pre>
         </div>
       </div>
     </div>
